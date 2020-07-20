@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Program
 {
@@ -9,7 +12,10 @@ namespace Program
             // variables for the parameters passed 
             int N = 0, M = 0, L = 0, Tinf = 0, T = 0;
             int i = 1;
+            string fileName = null;
             bool viewSimulation = false;
+
+            string docpath = Directory.GetCurrentDirectory();
 
             // Check if there is enough arguments
             if (args.Length < 10)
@@ -33,7 +39,20 @@ namespace Program
                     T = Convert.ToInt32(args[i]);
                 else if (s == "-V")
                     viewSimulation = true;
+                else if (s == "-O")
+                    fileName = args[i];
                 i++;
+            }
+
+            // Creates a file if it doesn´t exists
+            FileStream file;
+            if (fileName != null)
+            {
+                if(!File.Exists(docpath + "\\" + fileName))
+                {
+                    file = File.Create(docpath + "\\" + fileName);
+                    file.Close();
+                }
             }
 
             // Check if the variables aren´t 0

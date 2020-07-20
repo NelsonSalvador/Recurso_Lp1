@@ -1,14 +1,16 @@
+using System;
 using System.Threading;
 
 namespace Program
 {
     public class Simulator
     {
-        private int agents_alive;
+        //private int agents_alive;
         private int turn = 0;
- 
+        public World world;
         public Simulator(int N, int M, int L, int T, int Tinf, bool view)
         {
+            world = new World(N, M, L);
             /*Proprieties importantes para gameloop:
             agentes vivos,
             turnos,
@@ -18,16 +20,16 @@ namespace Program
             turnos,
             agentes (todos os estados)
             */
-            this.agents_alive = M;
+            //this.agents_alive = M;
 
             GameLoop(view, T, Tinf);
         }
 
+        
         public void GameLoop(bool view, int max_turn, int infection_turn)
         {
-            //World world = new World(N, M, L);
             //FileWritter fileWriter = new FileWritter(...)
-
+            world.Generate();
             while(true)
             {
                 if(/*(world.agents_alive == 0) && */(turn == max_turn))
@@ -53,5 +55,6 @@ namespace Program
 
             }
         }
+        
     }
 }

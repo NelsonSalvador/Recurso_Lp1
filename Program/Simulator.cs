@@ -1,3 +1,5 @@
+using System.Threading;
+
 namespace Program
 {
     public class Simulator
@@ -24,6 +26,7 @@ namespace Program
         public void GameLoop(bool view, int max_turn, int infection_turn)
         {
             //World world = new World(N, M, L);
+            //FileWritter fileWriter = new FileWritter(...)
 
             while(true)
             {
@@ -34,6 +37,18 @@ namespace Program
                 else
                 {
                     //world.World
+
+                    //fileWriter.AddToFile
+
+                    if(view)
+                    {
+                        //UI ui = new UI(...)
+                        Thread.Sleep(1000); 
+                    }
+                    else
+                    {
+                        Thread.Sleep(400); 
+                    }
                 }
 
             }

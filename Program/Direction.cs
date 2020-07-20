@@ -6,10 +6,6 @@ namespace Program
     public enum Direction
     {
         /// <summary>
-        /// Does not move.
-        /// </summary>
-        None,
-        /// <summary>
         /// Moves up.
         /// </summary>
         N,
@@ -40,10 +36,6 @@ namespace Program
         /// <summary>
         /// Moves down and left.
         /// </summary>
-        SW,
-        /// <summary>
-        /// Undefined movement.
-        /// </summary>
-        Undefined
+        SW
     }
 }

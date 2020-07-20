@@ -29,7 +29,7 @@ namespace Program
         bool view,int max_turn,int infection_turn ,int space)
         {
             //FileWritter fileWriter = new FileWritter(...)
-            world.PrintGenerate(max_turn, space);
+            world.Movement(max_turn, space);
             while(true)
             {
                 if(/*(world.agents_alive == 0) && */(turn == max_turn))

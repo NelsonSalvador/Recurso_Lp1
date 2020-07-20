@@ -42,7 +42,7 @@ namespace Program
             if (args.Length < 10)
             {
                 Console.WriteLine("Please run with enough arguments");
-                Environment.Exit(0);
+                return null;
             }
 
             // Cicle to assign variables
@@ -84,7 +84,7 @@ namespace Program
                 Console.WriteLine("Example: " + 
                     "dotnet run -- -N 50 -M 100 -L 10 -Tinf 5 -T 1000 -v -o" + 
                     " stats.tsv");
-                Environment.Exit(0);
+                return null;
             }
 
             return new Properties(N, M, L, Tinf, T, viewSimulation, fileName);

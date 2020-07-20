@@ -21,7 +21,7 @@ namespace Program
             }
         }
 
-        public void PrintGenerate(int max_turn, int space)
+        public void Movement(int max_turn, int space)
         {
             int x;
             int y;

@@ -1,15 +1,47 @@
+using System;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Program
 {
     public class Simulator
     {
         //private int agents_alive;
-        private int turn = 0;
+        private int currentTurn = 0;
         public World world;
-        public Simulator(int N, int M, int L, int T, int Tinf, bool view)
+        private List<Agent> agentsHealthy;
+        private List<Agent> agentsInfected;
+        private List<Agent> agentsDead;
+        private Properties prop;
+        public static Random random {get; private set;}
+
+
+
+        public Simulator(Properties properties)
         {
-            world = new World(N, M, L);
+            // initializes instance variables
+            this.prop = properties;
+            world = new World(prop.worldSize, prop.totalAgents, prop.agentLife);
+            random = new Random();
+            agentsHealthy = new List<Agent>();
+            agentsInfected = new List<Agent>();
+            agentsDead = new List<Agent>();
+
+
+            // creates and places healthy agents
+            for (int i = 0; i < prop.totalAgents; i++)
+            {
+                int x = random.Next(prop.worldSize);
+                int y = random.Next(prop.worldSize);
+                Coord c = new Coord(x, y);
+
+                Agent a = new Agent(c, prop.agentLife);
+
+                agentsHealthy.Add(a);
+                world.PlaceAgent(a, c);
+            }
+
+
             /*Proprieties importantes para gameloop:
             agentes vivos,
             turnos,
@@ -21,40 +53,40 @@ namespace Program
             */
             //this.agents_alive = M;
 
-            GameLoop(view, T, Tinf, N);
+            //GameLoop(view, T, Tinf, worldSize);
         }
 
         
-        public void GameLoop(
-        bool view,int max_turn,int infection_turn ,int space)
-        {
-            //FileWritter fileWriter = new FileWritter(...)
-            world.Movement(max_turn, space);
-            while(true)
-            {
-                if(/*(world.agents_alive == 0) && */(turn == max_turn))
-                {
-                    //End the simulation, get the stats if the option is right
-                }
-                else
-                {
-                    //world.World
+        // public void GameLoop(
+        // bool view,int max_turn,int infection_turn ,int space)
+        // {
+        //     //FileWritter fileWriter = new FileWritter(...)
+        //     world.Movement(max_turn, space);
+        //     while(true)
+        //     {
+        //         if(/*(world.agents_alive == 0) && */(turn == max_turn))
+        //         {
+        //             //End the simulation, get the stats if the option is right
+        //         }
+        //         else
+        //         {
+        //             //world.World
 
-                    //fileWriter.AddToFile
+        //             //fileWriter.AddToFile
 
-                    if(view)
-                    {
-                        //UI ui = new UI(...)
-                        Thread.Sleep(1000); 
-                    }
-                    else
-                    {
-                        Thread.Sleep(400); 
-                    }
-                }
+        //             if(view)
+        //             {
+        //                 //UI ui = new UI(...)
+        //                 Thread.Sleep(1000); 
+        //             }
+        //             else
+        //             {
+        //                 Thread.Sleep(400); 
+        //             }
+        //         }
 
-            }
-        }
+        //     }
+        // }
         
     }
 }

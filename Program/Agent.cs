@@ -25,7 +25,7 @@ namespace Program
         /// Agent
         /// </summary>
         /// <value></value>
-        public Status status {get;}
+        public Status status {get; private set;}
         
         /// <summary>
         /// Auto implemented property which indicates the entity's position on 
@@ -57,7 +57,7 @@ namespace Program
         /// <summary>
         /// Method that controls the random movement of the agent.
         /// </summary>
-        /// <param name="bounds">Reference to the World object</param>
+        /// <param name="world">Reference to the World object</param>
         /// <returns></returns>
         public Coord WhereToMove(World world)
         {
@@ -70,16 +70,33 @@ namespace Program
 
             // Picks a random direction 
             // until the picked direction is a valid move
-            int rand = world.random.Next(PossibleDirections.Count);
+            int rand = Simulator.random.Next(PossibleDirections.Count);
             Coord coord = world.GetNeighbour(pos, PossibleDirections[rand]);
 
             while (!(world.IsOnBoard(coord)))
             {
-                rand = world.random.Next(PossibleDirections.Count);
+                rand = Simulator.random.Next(PossibleDirections.Count);
                 coord = world.GetNeighbour(pos, PossibleDirections[rand]);
             }
-            
+
             return coord;
+        }
+
+
+        /// <summary>
+        /// Method responsible for lessening the lifetime of an infected agent, 
+        /// and updating from infected to dead.
+        /// </summary>
+        /// <returns>The Agent's health status after the  change.</returns>
+        public Status Damage()
+        {
+            if (status == Status.Infected)
+            {
+               lifetime--;
+                if (lifetime == 0)
+                    status = Status.Dead; 
+            }
+            return status;            
         }
 
 

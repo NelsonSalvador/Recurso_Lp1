@@ -6,19 +6,13 @@ namespace Program
     public class World
     {
         private int worldSize;
-        private int totalAgents;
-        public Random random {get;}
+
         private Dictionary<Coord, List<Agent>> map;
 
-        private List<Agent> agentsHealthy;
-        private List<Agent> agentsInfected;
-        private List<Agent> agentsDead;
+
         public World(int worldSize, int totalAgents, int agentLife)
         {
             this.worldSize = worldSize;
-            this.totalAgents = totalAgents;
-            
-            random = new Random();
             
             map = new Dictionary<Coord, List<Agent>>();
 
@@ -31,15 +25,6 @@ namespace Program
                 }
             }
 
-            // creates healthy agents
-            for (int i = 0; i < totalAgents; i++)
-            {
-                int x = random.Next(worldSize);
-                int y = random.Next(worldSize);
-                Coord c = new Coord(x, y);
-
-                map[c].Add(new Agent(c, agentLife));
-            }
         }
 
         /// <summary>
@@ -122,6 +107,16 @@ namespace Program
             }
 
             return neighbour;
+        }
+
+        /// <summary>
+        /// Places agent <param name="entity"> in the position.
+        /// </summary>
+        /// <param name="agent">Agent to be placed.</param>
+        /// <param name="coord">Position to place agent.</param>
+        public void PlaceAgent(Agent agent, Coord coord)
+        {
+            map[coord].Add(agent);
         }
 
         /// <summary>

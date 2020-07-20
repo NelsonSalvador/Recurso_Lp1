@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 
 namespace Program
@@ -22,14 +21,15 @@ namespace Program
             */
             //this.agents_alive = M;
 
-            GameLoop(view, T, Tinf);
+            GameLoop(view, T, Tinf, N);
         }
 
         
-        public void GameLoop(bool view, int max_turn, int infection_turn)
+        public void GameLoop(
+        bool view,int max_turn,int infection_turn ,int space)
         {
             //FileWritter fileWriter = new FileWritter(...)
-            world.Generate();
+            world.PrintGenerate(max_turn, space);
             while(true)
             {
                 if(/*(world.agents_alive == 0) && */(turn == max_turn))

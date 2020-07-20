@@ -21,11 +21,37 @@ namespace Program
             }
         }
 
-        public void PrintGenerate()
+        public void PrintGenerate(int max_turn, int space)
         {
+            int x;
+            int y;
+
             foreach(KeyValuePair<Id, Coords> tile in dic)
             {
-                Console.WriteLine(tile.Key.identification + " (" + tile.Value.X + ", " + tile.Value.Y + ") " + tile.Key.Infected);
+                Random rnd = new Random();
+
+                while(true)
+                {
+                    x = rnd.Next(-1,1);
+                    y = rnd.Next(-1,1);
+
+                    if((x == 0) && (y == 0))
+                    {
+                    }
+                    else
+                    {
+                        if(((tile.Value.X+x) < 0) || ((tile.Value.X+x) > space) 
+                        || ((tile.Value.Y+y) < 0) || ((tile.Value.Y+y) > space))
+                        {
+                        }
+                        else
+                        {
+                            dic[tile.Key] = 
+                            new Coords(tile.Value.X + x, tile.Value.Y + y);
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

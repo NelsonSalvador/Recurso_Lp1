@@ -22,6 +22,7 @@ namespace Program
                 for(int j = 0; j < worldSize; j++)
                 {
                     map.Add(new Coord(i, j), new List<Agent>());
+                    //System.Console.WriteLine($"Coord ({i},{j}) written.");
                 }
             }
 
@@ -57,7 +58,7 @@ namespace Program
                 return false;
             if (c.x >= worldSize)
                 return false;
-            if (c.y > worldSize)
+            if (c.y >= worldSize)
                 return false;
             return true;
 

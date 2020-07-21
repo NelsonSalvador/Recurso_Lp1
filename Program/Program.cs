@@ -6,6 +6,7 @@
         {
             Properties properties = Properties.ReadArgs(args);
             Simulator simulation = new Simulator(properties);
+            simulation.CoreLoop();
         }
     }
 }

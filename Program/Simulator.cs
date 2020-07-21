@@ -7,11 +7,14 @@ namespace Program
     public class Simulator
     {
         //private int agents_alive;
-        private int currentTurn = 0;
+        private int currentTurn = 1;
+        private int liveAgents;
         public World world;
         private List<Agent> agentsHealthy;
         private List<Agent> agentsInfected;
+        private List<Agent> agentsRecentDeath;
         private List<Agent> agentsDead;
+        public List<Stats> simStats;
         private Properties prop;
         public static Random random {get; private set;}
 
@@ -28,7 +31,10 @@ namespace Program
             random = new Random();
             agentsHealthy = new List<Agent>();
             agentsInfected = new List<Agent>();
+            agentsRecentDeath = new List<Agent>();
             agentsDead = new List<Agent>();
+            simStats = new List<Stats>();
+            liveAgents = prop.totalAgents;
 
 
             // creates and places healthy agents
@@ -64,7 +70,7 @@ namespace Program
         /// <param name="c">.
         /// </summary>
         /// <param name="c">The coordinate to infect.</param>
-        public void infectPos(Coord c)
+        public void InfectPos(Coord c)
         {
             foreach (Agent a in world.map[c])
             {
@@ -72,6 +78,81 @@ namespace Program
                 agentsHealthy.Remove(a);
                 agentsInfected.Add(a);
             }
+        }
+
+        public void CoreLoop()
+        {
+            // While under maximum turns, and still agents alive
+            while(currentTurn < prop.maxTurns 
+                && agentsDead.Count < prop.totalAgents)
+                {
+                    // clear recent death list
+                    agentsRecentDeath.Clear();
+
+                    // if turn = Tinf, randomly infect agent
+                    if(currentTurn == prop.firstInfect)
+                    {
+                        int rand = random.Next(prop.totalAgents);
+                        Agent a = agentsHealthy[rand];
+                        a.status = Status.Infected;
+                        agentsHealthy.Remove(a);
+                        agentsInfected.Add(a);
+                    }
+
+                    // Move each healthy agent
+                    foreach(Agent a in agentsHealthy)
+                    {
+                        Coord dest = a.WhereToMove(world);
+                        world.MoveAgent(a, dest);
+                    }
+                    // move each infected agent, stores their position
+                    List<Coord> infPos = new List<Coord>();
+                    foreach(Agent a in agentsInfected)
+                    {
+                        Coord dest = a.WhereToMove(world);
+                        world.MoveAgent(a, dest);
+                        infPos.Add(a.pos);
+                    }
+
+                    // for each pos with infected agent, infect all agents there
+                    foreach(Coord c in infPos)
+                    {
+                        InfectPos(c);
+                    }
+
+                    // shorten life os infected agents and update lists
+                    for(int i = agentsInfected.Count - 1; i >= 0; i--)
+                    {
+                        Agent a = agentsInfected[i];
+                        if(a.Damage() == Status.Dead)
+                        {
+                            // removes from infected
+                            agentsInfected.RemoveAt(i);
+                            // inserts at dead and recently dead
+                            agentsRecentDeath.Add(a);
+                            agentsDead.Add(a);
+                        }
+                    }
+                    
+                    // store stats for later use
+                    simStats.Add(new Stats(agentsHealthy.Count,
+                                            agentsInfected.Count,
+                                            agentsDead.Count));
+
+                    // show stats
+                    // TODO MOVE TO UI CLASS
+                    System.Console.WriteLine($"Turn {currentTurn} done" + 
+                        $" ({agentsHealthy.Count} healthy, " + 
+                        $" {agentsInfected.Count} infected, " + 
+                        $" {agentsDead.Count} deceased)");
+
+                    // show sim world
+                        // prints healthy spots
+                        // prints infected spots
+                        // prints recent deaths
+                    
+                    currentTurn++;
+                }
         }
 
         

@@ -12,5 +12,10 @@ namespace Program
             infected = i;
             dead = d;
         }
+
+        public override string ToString()
+        {
+            return $"{healthy}\t{infected}\t{dead}\n";
+        }
     }
 }

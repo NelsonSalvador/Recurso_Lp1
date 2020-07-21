@@ -19,7 +19,7 @@ namespace Program
         {
             worldSize = N;
             totalAgents = M;
-            agentLife = L;
+            agentLife = L+1;
             firstInfect = Ti;
             maxTurns = t;
             viewSim = v;

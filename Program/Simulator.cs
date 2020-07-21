@@ -6,9 +6,7 @@ namespace Program
 {
     public class Simulator
     {
-        //private int agents_alive;
         private int currentTurn = 1;
-        private int liveAgents;
         public World world;
         private List<Agent> agentsHealthy;
         private List<Agent> agentsInfected;
@@ -34,7 +32,6 @@ namespace Program
             agentsRecentDeath = new List<Agent>();
             agentsDead = new List<Agent>();
             simStats = new List<Stats>();
-            liveAgents = prop.totalAgents;
 
 
             // creates and places healthy agents
@@ -86,100 +83,103 @@ namespace Program
             // While under maximum turns, and still agents alive
             while(currentTurn <= prop.maxTurns 
                 && agentsDead.Count < prop.totalAgents)
+            {
+                // clear recent death list
+                agentsRecentDeath.Clear();
+
+                // if turn = Tinf, randomly infect agent
+                if(currentTurn == prop.firstInfect)
                 {
-                    // clear recent death list
-                    agentsRecentDeath.Clear();
-
-                    // if turn = Tinf, randomly infect agent
-                    if(currentTurn == prop.firstInfect)
-                    {
-                        int rand = random.Next(prop.totalAgents);
-                        Agent a = agentsHealthy[rand];
-                        InfectPos(a.pos);
-                    }
-
-                    // Move each healthy agent
-                    foreach(Agent a in agentsHealthy)
-                    {
-                        Coord dest = a.WhereToMove(world);
-                        world.MoveAgent(a, dest);
-                    }
-                    // move each infected agent, stores their position
-                    List<Coord> infPos = new List<Coord>();
-                    foreach(Agent a in agentsInfected)
-                    {
-                        Coord dest = a.WhereToMove(world);
-                        world.MoveAgent(a, dest);
-                        infPos.Add(a.pos);
-                    }
-
-                    // for each pos with infected agent, infect all agents there
-                    foreach(Coord c in infPos)
-                    {
-                        InfectPos(c);
-                    }
-
-                    // shorten life os infected agents and update lists
-                    for(int i = agentsInfected.Count - 1; i >= 0; i--)
-                    //foreach(Agent a in agentsInfected)
-                    {
-                        Agent a = agentsInfected[i];
-                        if(a.Damage() == Status.Dead)
-                        {
-                            // removes from infected
-                            agentsInfected.RemoveAt(i);
-                            world.map[a.pos].Remove(a);
-                            // inserts at dead and recently dead
-                            //if(!agentsRecentDeath.Contains(a))
-                                agentsRecentDeath.Add(a);
-                            //if(!agentsDead.Contains(a))
-                                agentsDead.Add(a);
-                        }
-                    }
-
-                    // removes recent death from infected
-                    // foreach (Agent a in agentsRecentDeath)
-                    // {
-                    //     agentsInfected.Remove(a);
-                    //     world.map[a.pos].Remove(a);
-                    // }
-                    
-                    
-                    // store stats for later use
-                    simStats.Add(new Stats(agentsHealthy.Count,
-                                            agentsInfected.Count,
-                                            agentsDead.Count));
-
-                    // show stats
-                    // TODO MOVE TO UI CLASS
-                    System.Console.WriteLine($"Turn {currentTurn} done" + 
-                        $" ({agentsHealthy.Count} healthy, " + 
-                        $" {agentsInfected.Count} infected, " + 
-                        $" {agentsDead.Count} deceased)");
-
-                    System.Console.Write("Healthy   ");
-                    foreach(Agent a in agentsHealthy)
-                        System.Console.Write(a.id + "  ");
-
-                    System.Console.WriteLine();
-                    System.Console.Write("Infected   ");
-                    foreach(Agent a in agentsInfected)
-                        System.Console.Write(a.id + "  ");
-
-                    System.Console.WriteLine();
-                    System.Console.Write("Dead   ");
-                    foreach(Agent a in agentsDead)
-                        System.Console.Write(a.id + "  ");
-                    System.Console.WriteLine();
-
-
-                    // show sim world
-                        // prints healthy spots
-                        // prints infected spots
-                        // prints recent deaths
-                    
-                    currentTurn++;
+                    int rand = random.Next(prop.totalAgents);
+                    Agent a = agentsHealthy[rand];
+                    InfectPos(a.pos);
                 }
+
+                // Move each healthy agent
+                foreach(Agent a in agentsHealthy)
+                {
+                    Coord dest = a.WhereToMove(world);
+                    world.MoveAgent(a, dest);
+                }
+                // move each infected agent, stores their position
+                List<Coord> infPos = new List<Coord>();
+                foreach(Agent a in agentsInfected)
+                {
+                    Coord dest = a.WhereToMove(world);
+                    world.MoveAgent(a, dest);
+                    infPos.Add(a.pos);
+                }
+
+                // for each pos with infected agent, infect all agents there
+                foreach(Coord c in infPos)
+                {
+                    InfectPos(c);
+                }
+
+                // shorten life os infected agents and update lists
+                for(int i = agentsInfected.Count - 1; i >= 0; i--)
+                //foreach(Agent a in agentsInfected)
+                {
+                    Agent a = agentsInfected[i];
+                    if(a.Damage() == Status.Dead)
+                    {
+                        // removes from infected
+                        agentsInfected.RemoveAt(i);
+                        world.map[a.pos].Remove(a);
+                        // inserts at dead and recently dead
+                        //if(!agentsRecentDeath.Contains(a))
+                            agentsRecentDeath.Add(a);
+                        //if(!agentsDead.Contains(a))
+                            agentsDead.Add(a);
+                    }
+                }
+
+                // removes recent death from infected
+                // foreach (Agent a in agentsRecentDeath)
+                // {
+                //     agentsInfected.Remove(a);
+                //     world.map[a.pos].Remove(a);
+                // }
+
+                
+                // store stats for later use
+                simStats.Add(new Stats(agentsHealthy.Count,
+                                        agentsInfected.Count,
+                                        agentsDead.Count));
+
+                // show stats
+                // TODO MOVE TO UI CLASS
+                System.Console.WriteLine($"Turn {currentTurn} done" + 
+                    $" ({agentsHealthy.Count} healthy, " + 
+                    $" {agentsInfected.Count} infected, " + 
+                    $" {agentsDead.Count} deceased)");
+
+                // show sim world
+                    // prints healthy spots
+                    // prints infected spots
+                    // prints recent deaths
+                
+                currentTurn++;
+            }
+        }
+
+        //debug, deletar
+        public void PrintAgentsData()
+        {
+            System.Console.Write("Healthy   ");
+            foreach(Agent a in agentsHealthy)
+                System.Console.Write(a.id + "  ");
+
+            System.Console.WriteLine();
+            System.Console.Write("Infected   ");
+            foreach(Agent a in agentsInfected)
+                System.Console.Write(a.id + "  ");
+
+            System.Console.WriteLine();
+            System.Console.Write("Dead   ");
+            foreach(Agent a in agentsDead)
+                System.Console.Write(a.id + "  ");
+            System.Console.WriteLine();
         }
 
         

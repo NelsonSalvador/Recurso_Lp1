@@ -30,6 +30,12 @@ namespace Program
             }
             else
             {
+                Thread.Sleep(300);
+                Console.WriteLine($"Turn {currentTurn} done" + 
+                    $" ({agentsHealthy.Count} healthy, " + 
+                    $" {agentsInfected.Count} infected, " + 
+                    $" {agentsDead.Count} deceased)");
+                Console.WriteLine("");
                 for(int y = 0; y <= prop.worldSize; y++)
                 {
                     for(int x = 0; x <= prop.worldSize; x++)

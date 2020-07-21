@@ -144,6 +144,7 @@ namespace Program
                     //     world.map[a.pos].Remove(a);
                     // }
                     
+                    
                     // store stats for later use
                     simStats.Add(new Stats(agentsHealthy.Count,
                                             agentsInfected.Count,

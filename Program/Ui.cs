@@ -9,7 +9,8 @@ namespace Program
         private List<Agent> agentsInfected;
         private List<Agent> agentsDead;
         private Properties prop;
-        public Ui(List<Agent> healty, List<Agent> infected, List<Agent> dead, Properties prop)
+        public Ui(List<Agent> healty, List<Agent> infected, List<Agent> dead, 
+            Properties prop)
         {
             this.agentsDead = dead;
             this.agentsHealthy = healty;

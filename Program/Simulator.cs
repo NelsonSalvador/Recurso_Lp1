@@ -74,16 +74,17 @@ namespace Program
         {
             foreach (Agent a in world.map[c])
             {
-                a.status = Status.Infected;
                 agentsHealthy.Remove(a);
-                agentsInfected.Add(a);
+                a.status = Status.Infected;
+                if(!agentsInfected.Contains(a))
+                    agentsInfected.Add(a);
             }
         }
 
         public void CoreLoop()
         {
             // While under maximum turns, and still agents alive
-            while(currentTurn < prop.maxTurns 
+            while(currentTurn <= prop.maxTurns 
                 && agentsDead.Count < prop.totalAgents)
                 {
                     // clear recent death list
@@ -94,9 +95,7 @@ namespace Program
                     {
                         int rand = random.Next(prop.totalAgents);
                         Agent a = agentsHealthy[rand];
-                        a.status = Status.Infected;
-                        agentsHealthy.Remove(a);
-                        agentsInfected.Add(a);
+                        InfectPos(a.pos);
                     }
 
                     // Move each healthy agent
@@ -122,17 +121,28 @@ namespace Program
 
                     // shorten life os infected agents and update lists
                     for(int i = agentsInfected.Count - 1; i >= 0; i--)
+                    //foreach(Agent a in agentsInfected)
                     {
                         Agent a = agentsInfected[i];
                         if(a.Damage() == Status.Dead)
                         {
                             // removes from infected
                             agentsInfected.RemoveAt(i);
+                            world.map[a.pos].Remove(a);
                             // inserts at dead and recently dead
-                            agentsRecentDeath.Add(a);
-                            agentsDead.Add(a);
+                            //if(!agentsRecentDeath.Contains(a))
+                                agentsRecentDeath.Add(a);
+                            //if(!agentsDead.Contains(a))
+                                agentsDead.Add(a);
                         }
                     }
+
+                    // removes recent death from infected
+                    // foreach (Agent a in agentsRecentDeath)
+                    // {
+                    //     agentsInfected.Remove(a);
+                    //     world.map[a.pos].Remove(a);
+                    // }
                     
                     // store stats for later use
                     simStats.Add(new Stats(agentsHealthy.Count,
@@ -145,6 +155,22 @@ namespace Program
                         $" ({agentsHealthy.Count} healthy, " + 
                         $" {agentsInfected.Count} infected, " + 
                         $" {agentsDead.Count} deceased)");
+
+                    System.Console.Write("Healthy   ");
+                    foreach(Agent a in agentsHealthy)
+                        System.Console.Write(a.id + "  ");
+
+                    System.Console.WriteLine();
+                    System.Console.Write("Infected   ");
+                    foreach(Agent a in agentsInfected)
+                        System.Console.Write(a.id + "  ");
+
+                    System.Console.WriteLine();
+                    System.Console.Write("Dead   ");
+                    foreach(Agent a in agentsDead)
+                        System.Console.Write(a.id + "  ");
+                    System.Console.WriteLine();
+
 
                     // show sim world
                         // prints healthy spots

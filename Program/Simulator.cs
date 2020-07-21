@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using System.Collections.Generic;
 
 namespace Program
@@ -9,6 +8,7 @@ namespace Program
         private int currentTurn = 1;
         public World world;
         public Ui ui;
+        public FileUpdate fileUpdate;
         private List<Agent> agentsHealthy;
         private List<Agent> agentsInfected;
         private List<Agent> agentsRecentDeath;
@@ -34,6 +34,12 @@ namespace Program
             agentsDead = new List<Agent>();
             simStats = new List<Stats>();
             ui = new Ui(agentsHealthy, agentsInfected, agentsDead, prop);
+
+            if(prop.saveStats)
+            {
+                fileUpdate = new FileUpdate(
+                    agentsHealthy, agentsInfected, agentsDead, prop.statsFile);
+            }
 
 
             // creates and places healthy agents
@@ -129,9 +135,16 @@ namespace Program
                                         agentsDead.Count));
 
                 ui.viewSim(currentTurn, agentsRecentDeath);
+
+                if(prop.saveStats)
+                {
+                    fileUpdate.updateData();
+                }
                 
                 currentTurn++;
             }
+
+            fileUpdate.WriteOnFile();
         }
         
     }

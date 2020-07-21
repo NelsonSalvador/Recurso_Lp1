@@ -8,6 +8,7 @@ namespace Program
     {
         private int currentTurn = 1;
         public World world;
+        public Ui ui;
         private List<Agent> agentsHealthy;
         private List<Agent> agentsInfected;
         private List<Agent> agentsRecentDeath;
@@ -32,6 +33,7 @@ namespace Program
             agentsRecentDeath = new List<Agent>();
             agentsDead = new List<Agent>();
             simStats = new List<Stats>();
+            ui = new Ui(agentsHealthy, agentsInfected, agentsDead, prop);
 
 
             // creates and places healthy agents
@@ -46,20 +48,6 @@ namespace Program
                 agentsHealthy.Add(a);
                 world.PlaceAgent(a, c);
             }
-
-
-            /*Proprieties importantes para gameloop:
-            agentes vivos,
-            turnos,
-            turno infetado.
-
-            Proprieties importantes para UI:
-            turnos,
-            agentes (todos os estados)
-            */
-            //this.agents_alive = M;
-
-            //GameLoop(view, T, Tinf, worldSize);
         }
 
         /// <summary>
@@ -134,85 +122,17 @@ namespace Program
                     }
                 }
 
-                // removes recent death from infected
-                // foreach (Agent a in agentsRecentDeath)
-                // {
-                //     agentsInfected.Remove(a);
-                //     world.map[a.pos].Remove(a);
-                // }
-
                 
                 // store stats for later use
                 simStats.Add(new Stats(agentsHealthy.Count,
                                         agentsInfected.Count,
                                         agentsDead.Count));
 
-                // show stats
-                // TODO MOVE TO UI CLASS
-                System.Console.WriteLine($"Turn {currentTurn} done" + 
-                    $" ({agentsHealthy.Count} healthy, " + 
-                    $" {agentsInfected.Count} infected, " + 
-                    $" {agentsDead.Count} deceased)");
-
-                // show sim world
-                    // prints healthy spots
-                    // prints infected spots
-                    // prints recent deaths
+                ui.viewSim(currentTurn, agentsRecentDeath);
                 
                 currentTurn++;
             }
         }
-
-        //debug, deletar
-        public void PrintAgentsData()
-        {
-            System.Console.Write("Healthy   ");
-            foreach(Agent a in agentsHealthy)
-                System.Console.Write(a.id + "  ");
-
-            System.Console.WriteLine();
-            System.Console.Write("Infected   ");
-            foreach(Agent a in agentsInfected)
-                System.Console.Write(a.id + "  ");
-
-            System.Console.WriteLine();
-            System.Console.Write("Dead   ");
-            foreach(Agent a in agentsDead)
-                System.Console.Write(a.id + "  ");
-            System.Console.WriteLine();
-        }
-
-        
-        // public void GameLoop(
-        // bool view,int max_turn,int infection_turn ,int space)
-        // {
-        //     //FileWritter fileWriter = new FileWritter(...)
-        //     world.Movement(max_turn, space);
-        //     while(true)
-        //     {
-        //         if(/*(world.agents_alive == 0) && */(turn == max_turn))
-        //         {
-        //             //End the simulation, get the stats if the option is right
-        //         }
-        //         else
-        //         {
-        //             //world.World
-
-        //             //fileWriter.AddToFile
-
-        //             if(view)
-        //             {
-        //                 //UI ui = new UI(...)
-        //                 Thread.Sleep(1000); 
-        //             }
-        //             else
-        //             {
-        //                 Thread.Sleep(400); 
-        //             }
-        //         }
-
-        //     }
-        // }
         
     }
 }

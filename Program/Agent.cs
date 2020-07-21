@@ -25,7 +25,7 @@ namespace Program
         /// Agent
         /// </summary>
         /// <value></value>
-        public Status status {get; private set;}
+        public Status status {get; set;}
         
         /// <summary>
         /// Auto implemented property which indicates the entity's position on 
@@ -100,6 +100,55 @@ namespace Program
         }
 
 
+        /// <summary>
+        /// Method that indicates whether two given Agents are equal.
+        /// </summary>
+        /// <param name="a">An agent.</param>
+        /// <param name="b">An agent.</param>
+        /// <returns><c>true</c> if the two given positions are equal,
+        /// <c>false</c> otherwise.</returns>
+        public static bool operator ==(Agent a, Agent b){
+            if (a.id != b.id)
+                return false;
+            return true;
+        } 
 
+        /// <summary>
+        /// Method that indicates whether two given Agent are different.
+        /// </summary>
+        /// <param name="a">An Agent.</param>
+        /// <param name="b">An Agent.</param>
+        /// <returns><c>true</c> if the two given positions are different,
+        /// <c>false</c> otherwise.</returns>
+        public static bool operator !=(Agent a, Agent b){
+            return !(a==b);
+        }
+
+        /// <summary>
+        /// Method that indicates whether a given Agent is equal to this 
+        /// agent.
+        /// </summary>
+        /// <param name="obj">An object.</param>
+        /// <returns><c>true</c> if the object is a agent and is equal to 
+        /// this agent, <c>false</c> otherwise.</returns>
+        public override bool Equals(System.Object obj){
+            if (obj == null)
+                return false;
+            if (!(obj is Agent))
+                return false;
+            Agent p = (Agent) obj;
+            if ((System.Object)p == null)
+                return false;
+
+            return (id == p.id);
+        }
+        
+        /// <summary>
+        /// This method is used to return the hash code for this instance.
+        /// </summary>
+        /// <returns>The hash code for this instance.</returns>
+        public override int GetHashCode(){
+            return id.GetHashCode();
+        }
     }
 }

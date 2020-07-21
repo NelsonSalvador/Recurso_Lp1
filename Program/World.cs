@@ -7,7 +7,7 @@ namespace Program
     {
         private int worldSize;
 
-        private Dictionary<Coord, List<Agent>> map;
+        public Dictionary<Coord, List<Agent>> map {get; private set;}
 
 
         public World(int worldSize, int totalAgents, int agentLife)

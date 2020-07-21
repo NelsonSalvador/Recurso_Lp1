@@ -16,7 +16,10 @@ namespace Program
         public static Random random {get; private set;}
 
 
-
+        /// <summary>
+        /// Class constructor. Creates and places healthy agents on world.
+        /// </summary>
+        /// <param name="properties">Simulation properties</param>
         public Simulator(Properties properties)
         {
             // initializes instance variables
@@ -54,6 +57,21 @@ namespace Program
             //this.agents_alive = M;
 
             //GameLoop(view, T, Tinf, worldSize);
+        }
+
+        /// <summary>
+        /// This method infects all the agents at a given coordinate 
+        /// <param name="c">.
+        /// </summary>
+        /// <param name="c">The coordinate to infect.</param>
+        public void infectPos(Coord c)
+        {
+            foreach (Agent a in world.map[c])
+            {
+                a.status = Status.Infected;
+                agentsHealthy.Remove(a);
+                agentsInfected.Add(a);
+            }
         }
 
         

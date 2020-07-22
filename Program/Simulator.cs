@@ -63,6 +63,8 @@ namespace Program
         /// <param name="c">The coordinate to infect.</param>
         public void InfectPos(Coord c)
         {
+            //for each agent in the same space as an infected agent, remove them
+            //from the healthy list to put them in the infected list
             foreach (Agent a in world.map[c])
             {
                 agentsHealthy.Remove(a);
@@ -112,7 +114,6 @@ namespace Program
 
                 // shorten life os infected agents and update lists
                 for(int i = agentsInfected.Count - 1; i >= 0; i--)
-                //foreach(Agent a in agentsInfected)
                 {
                     Agent a = agentsInfected[i];
                     if(a.Damage() == Status.Dead)
@@ -136,15 +137,23 @@ namespace Program
 
                 ui.viewSim(currentTurn, agentsRecentDeath);
 
+                //checks if there's the option of saving the date in a file
                 if(prop.saveStats)
                 {
+                    //updates a list of the recent data
                     fileUpdate.updateData();
                 }
                 
+                //Goes for the next turn
                 currentTurn++;
             }
 
-            fileUpdate.WriteOnFile();
+            //Since the simulation has ended, then all the date is written
+            //in a file if the option of saving is on
+            if(prop.saveStats)
+            {
+                fileUpdate.WriteOnFile();
+            }
         }
         
     }

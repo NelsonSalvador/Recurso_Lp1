@@ -87,6 +87,7 @@ namespace Program
                 return null;
             }
 
+            //returns all the proprieties of the user
             return new Properties(N, M, L, Tinf, T, viewSimulation, fileName);
         }
     }

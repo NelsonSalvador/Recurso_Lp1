@@ -28,8 +28,10 @@ namespace Program
 
         public void WriteOnFile()
         {
+            //gets the path to the file
             string docPath = Directory.GetCurrentDirectory();
 
+            //write all the date of the list dataSaver to the file
             using (StreamWriter outputFile = 
                             new StreamWriter(Path.Combine(docPath, fileName)))
             {

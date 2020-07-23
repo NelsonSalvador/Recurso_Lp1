@@ -13,7 +13,6 @@ namespace Program
         private List<Agent> agentsInfected;
         private List<Agent> agentsRecentDeath;
         private List<Agent> agentsDead;
-        public List<Stats> simStats;
         private Properties prop;
         public static Random random {get; private set;}
 
@@ -32,7 +31,6 @@ namespace Program
             agentsInfected = new List<Agent>();
             agentsRecentDeath = new List<Agent>();
             agentsDead = new List<Agent>();
-            simStats = new List<Stats>();
             ui = new Ui(agentsHealthy, agentsInfected, agentsDead, prop);
 
             if(prop.saveStats)
@@ -132,12 +130,6 @@ namespace Program
                             agentsDead.Add(a);
                     }
                 }
-
-                
-                // store stats for later use
-                simStats.Add(new Stats(agentsHealthy.Count,
-                                        agentsInfected.Count,
-                                        agentsDead.Count));
 
                 ui.viewSim(currentTurn, agentsRecentDeath);
 

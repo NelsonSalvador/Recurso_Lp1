@@ -3,17 +3,52 @@ using System.Collections.Generic;
 
 namespace Program
 {
+    /// <summary>
+    /// Class responsible for managing the simulation's main functions and 
+    /// loops.
+    /// </summary>
     public class Simulator
     {
+        /// <summary>
+        /// Number of the current turn.
+        /// </summary>
         private int currentTurn = 1;
+        /// <summary>
+        /// Instance of the simulation's world.
+        /// </summary>
         public World world;
+        /// <summary>
+        /// Instance of the UI manager.
+        /// </summary>
         public Ui ui;
+        /// <summary>
+        /// Instance of the File manager.
+        /// </summary>
         public FileUpdate fileUpdate;
+        /// <summary>
+        /// List of healthy Agents.
+        /// </summary>
         private List<Agent> agentsHealthy;
+        /// <summary>
+        /// List of infected Agents.
+        /// </summary>
         private List<Agent> agentsInfected;
+        /// <summary>
+        /// List of Agents who died on the current turn.
+        /// </summary>
         private List<Agent> agentsRecentDeath;
+        /// <summary>
+        /// List of dead Agents.
+        /// </summary>
         private List<Agent> agentsDead;
+        /// <summary>
+        /// Simulation properties.
+        /// </summary>
         private Properties prop;
+        /// <summary>
+        /// Random number generator.
+        /// </summary>
+        /// <value></value>
         public static Random random {get; private set;}
 
 
@@ -72,6 +107,14 @@ namespace Program
             }
         }
 
+        /// <summary>
+        /// Main loop of the simulation
+        /// </summary>
+        /// <remarks>
+        /// Works as long as there are live agents, or the maximum turn has not 
+        /// been reached.
+        /// Moves and infects agents, calls for UI and File manager classes.
+        /// </remarks>
         public void CoreLoop()
         {
             // While under maximum turns, and still agents alive

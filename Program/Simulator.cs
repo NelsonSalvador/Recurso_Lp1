@@ -28,19 +28,19 @@ namespace Program
         /// <summary>
         /// List of healthy Agents.
         /// </summary>
-        private List<Agent> agentsHealthy;
+        private List<Agent> agentsHealthy {get;}
         /// <summary>
         /// List of infected Agents.
         /// </summary>
-        private List<Agent> agentsInfected;
+        private List<Agent> agentsInfected {get;}
         /// <summary>
         /// List of Agents who died on the current turn.
         /// </summary>
-        private List<Agent> agentsRecentDeath;
+        private List<Agent> agentsRecentDeath {get;}
         /// <summary>
         /// List of dead Agents.
         /// </summary>
-        private List<Agent> agentsDead;
+        private List<Agent> agentsDead {get;}
         /// <summary>
         /// Simulation properties.
         /// </summary>

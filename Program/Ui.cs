@@ -11,15 +11,15 @@ namespace Program
         /// <summary>
         /// List of healthy agents.
         /// </summary>
-        private List<Agent> agentsHealthy;
+        private List<Agent> agentsHealthy {get;}
         /// <summary>
         /// List of infected agents.
         /// </summary>
-        private List<Agent> agentsInfected;
+        private List<Agent> agentsInfected {get;}
         /// <summary>
         /// List of dead agents.
         /// </summary>
-        private List<Agent> agentsDead;
+        private List<Agent> agentsDead {get;}
         /// <summary>
         /// Simulation properties.
         /// </summary>

@@ -8,21 +8,24 @@ namespace Program
     /// </summary>
     public class FileUpdate
     {
+        
+        
         /// <summary>
         /// List fo healthy agents in the simulation.
         /// </summary>
-        private List<Agent> agentsHealthy;
+        private List<Agent> agentsHealthy {get;}
         /// <summary>
         /// List of infected agents in th simulation
         /// </summary>
-        private List<Agent> agentsInfected;
+        private List<Agent> agentsInfected {get;}
         /// <summary>
         /// List of dead agents in th simulation
         /// </summary>
-        private List<Agent> agentsDead;
+        private List<Agent> agentsDead {get;}
         /// <summary>
         /// String responsible for storing the name of the output file.
         /// </summary>
+
         private string fileName;
         /// <summary>
         /// List of strings responsible for storing the data from each turn.

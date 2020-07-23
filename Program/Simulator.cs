@@ -88,7 +88,11 @@ namespace Program
                 {
                     int rand = random.Next(prop.totalAgents);
                     Agent a = agentsHealthy[rand];
-                    InfectPos(a.pos);
+
+                    agentsHealthy.Remove(a);
+                    a.status = Status.Infected;
+                    if(!agentsInfected.Contains(a))
+                        agentsInfected.Add(a);
                 }
 
                 // Move each healthy agent

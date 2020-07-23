@@ -5,9 +5,9 @@ namespace Program
 {
     public class Ui
     {
-        private List<Agent> agentsHealthy;
-        private List<Agent> agentsInfected;
-        private List<Agent> agentsDead;
+        private List<Agent> agentsHealthy {get;}
+        private List<Agent> agentsInfected {get;}
+        private List<Agent> agentsDead {get;}
         private Properties prop;
         public Ui(List<Agent> healty, List<Agent> infected, List<Agent> dead, 
             Properties prop)

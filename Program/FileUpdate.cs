@@ -5,9 +5,9 @@ namespace Program
 {
     public class FileUpdate
     {
-        private List<Agent> agentsHealthy;
-        private List<Agent> agentsInfected;
-        private List<Agent> agentsDead;
+        private List<Agent> agentsHealthy {get;}
+        private List<Agent> agentsInfected {get;}
+        private List<Agent> agentsDead {get;}
         private string fileName;
         private List<string> dataSaver;
         public FileUpdate(List<Agent> healty, List<Agent> infected, 

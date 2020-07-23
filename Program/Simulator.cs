@@ -9,10 +9,10 @@ namespace Program
         public World world;
         public Ui ui;
         public FileUpdate fileUpdate;
-        private List<Agent> agentsHealthy;
-        private List<Agent> agentsInfected;
-        private List<Agent> agentsRecentDeath;
-        private List<Agent> agentsDead;
+        private List<Agent> agentsHealthy {get;}
+        private List<Agent> agentsInfected {get;}
+        private List<Agent> agentsRecentDeath {get;}
+        private List<Agent> agentsDead {get;}
         private Properties prop;
         public static Random random {get; private set;}
 

@@ -3,12 +3,38 @@ using System.Threading;
 using System.Collections.Generic;
 namespace Program
 {
+    /// <summary>
+    /// Class responsible for writing into the console.
+    /// </summary>
     public class Ui
     {
+        /// <summary>
+        /// List of healthy agents.
+        /// </summary>
         private List<Agent> agentsHealthy;
+        /// <summary>
+        /// List of infected agents.
+        /// </summary>
         private List<Agent> agentsInfected;
+        /// <summary>
+        /// List of dead agents.
+        /// </summary>
         private List<Agent> agentsDead;
+        /// <summary>
+        /// Simulation properties.
+        /// </summary>
         private Properties prop;
+        /// <summary>
+        /// Constructor. Receives lists of agents and simulation properties.
+        /// </summary>
+        /// <param name="healty">Reference to the list of healthy agents.
+        /// </param>
+        /// <param name="infected">Reference to the list of infected agents.
+        /// </param>
+        /// <param name="dead">Reference to the list of dead agents.
+        /// </param>
+        /// <param name="prop">Reference to the simulation's properties.
+        /// </param>
         public Ui(List<Agent> healty, List<Agent> infected, List<Agent> dead, 
             Properties prop)
         {
@@ -18,6 +44,13 @@ namespace Program
             this.prop = prop;
         }
 
+        /// <summary>
+        /// Method responsible for writing info each turn on the console, and 
+        /// showing the grid if necessary.
+        /// </summary>
+        /// <param name="currentTurn">Number of the current turn.</param>
+        /// <param name="recentDead">List of agents who died on current turn.
+        /// </param>
         public void viewSim(int currentTurn, List<Agent> recentDead)
         {
             bool empty = true;

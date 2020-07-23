@@ -4,18 +4,78 @@ using System.Collections;
 using System.Collections.Generic;
 namespace Program
 {
-    public class Properties
+    /// <summary>
+    /// Struct responsible for reading the user input from command line, 
+    /// and make them available as properties.
+    /// </summary>
+    public struct Properties
     {
+        /// <summary>
+        /// Auto-implemented property that contains one of the dimensions of 
+        /// a NxN simulation grid.
+        /// </summary>
+        /// <value>One of the dimensions of a NxN simulation grid.</value>
         public int worldSize {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that contains the initial number of 
+        /// agents in the simulation.
+        /// </summary>
+        /// <value>Initial number of agents in the simulation.</value>
         public int totalAgents {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that contains the total lifetime of an 
+        /// agent after being infected, in turns.
+        /// </summary>
+        /// <value>Total lifetime of an agent after being infected, in turns.
+        /// </value>
         public int agentLife {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that contains the number of the turn 
+        /// when the first, random, infection occurs.
+        /// </summary>
+        /// <value>Number of the turn when the first, random, infection occurs.
+        /// </value>
         public int firstInfect {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that contains the maximum limit of turns 
+        /// allowed before the simulation ends.
+        /// </summary>
+        /// <value>Maximum limit of turns before the simulation ends.</value>
         public int maxTurns {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that indicates whether the simulation 
+        /// grid is shown on the console.
+        /// </summary>
+        /// <value><c>True</c> if simulation grid is shown on the console, 
+        /// <c>false</c> otherwise</value>
         public bool viewSim {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that indicates whether the simulation 
+        /// stats are saved in an output file.
+        /// </summary>
+        /// <value><c>True</c> if simulation stats are save in a file, 
+        /// <c>false</c> otherwise</value>
         public bool saveStats {get; private set;}
+        /// <summary>
+        /// Auto-implemented property that contains the name of the file where 
+        /// the simulation stats are saved.
+        /// </summary>
+        /// <value></value>
         public string statsFile {get; private set;}
 
-        public Properties(int N, int M, int L, int Ti, int t, bool v, string o)
+        /// <summary>
+        /// Private constructor that initializes an instance of this struct
+        /// with valid values for the different command line options.
+        /// </summary>
+        /// <param name="N">One dimension of the NxN grid.</param>
+        /// <param name="M">Initial number of agents.</param>
+        /// <param name="L">Lifetime of an agent after being infected.</param>
+        /// <param name="Ti">Turn in which the first infection happens.</param>
+        /// <param name="t">Maximum number of turns.</param>
+        /// <param name="v">Whether the simulation grid should be shown or not.
+        /// </param>
+        /// <param name="o">Name of the output file to save the stats.</param>
+        private Properties(int N, int M, int L, int Ti, int t, bool v, string o)
         {
             worldSize = N;
             totalAgents = M;
@@ -28,6 +88,14 @@ namespace Program
 
         }
 
+        /// <summary>
+        /// Static method that parses the command line arguments and returns a 
+        /// new <see cref="Properties"/> object which contains those same 
+        /// arguments after being treated.
+        /// </summary>
+        /// <param name="args">Arguments from the command line.</param>
+        /// <returns>An object of type <see cref="Properties"/> which contains 
+        /// the simulation properties.</returns>
         public static Properties ReadArgs(string[] args)
         {
             // variables for the parameters passed 
@@ -42,10 +110,10 @@ namespace Program
             if (args.Length < 10)
             {
                 Console.WriteLine("Please run with enough arguments");
-                return null;
+                return new Properties();;
             }
 
-            // Cicle to assign variables
+            // Cycle to assign variables
             foreach(string s in args)
             {
                 if (s == "-N")
@@ -84,7 +152,7 @@ namespace Program
                 Console.WriteLine("Example: " + 
                     "dotnet run -- -N 50 -M 100 -L 10 -Tinf 5 -T 1000 -v -o" + 
                     " stats.tsv");
-                return null;
+                return new Properties();
             }
 
             //returns all the proprieties of the user

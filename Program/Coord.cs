@@ -35,7 +35,7 @@ namespace Program
         public  override string ToString() => $"({x}, {y})";
 
         /// <summary>
-        /// Retuns the sum of two positions.
+        /// Returns the sum of two positions.
         /// </summary>
         /// <param name="a">A position.</param>
         /// <param name="b">A position.</param>
@@ -44,7 +44,7 @@ namespace Program
         => new Coord(a.x + b.x, a.y + b.y);
 
         /// <summary>
-        /// Retuns the subtraction of two positions.
+        /// Returns the subtraction of two positions.
         /// </summary>
         /// <param name="a">A position.</param>
         /// <param name="b">A position.</param>

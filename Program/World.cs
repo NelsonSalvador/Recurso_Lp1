@@ -2,13 +2,30 @@ using System.Collections.Generic;
 
 namespace Program
 {
+    /// <summary>
+    /// Class responsible for representing the simulation's world.
+    /// </summary>
     public class World
     {
+        /// <summary>
+        /// Dimension of one side of the NxN world.
+        /// </summary>
         private int worldSize;
 
+        /// <summary>
+        /// Auto implemented property that defines a dictionary of coordinates 
+        /// by agents in each coordinate.
+        /// </summary>
+        /// <value></value>
         public Dictionary<Coord, List<Agent>> map {get; private set;}
 
-
+        /// <summary>
+        /// Constructor. Receives world size, initial amount of agents, and 
+        /// agent lifetime after infection.
+        /// </summary>
+        /// <param name="worldSize">Dimension of one side of the world.</param>
+        /// <param name="totalAgents">Initial amount of agents.</param>
+        /// <param name="agentLife">Agent lifetime after infection.</param>
         public World(int worldSize, int totalAgents, int agentLife)
         {
             this.worldSize = worldSize;

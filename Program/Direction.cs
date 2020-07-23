@@ -1,7 +1,7 @@
 namespace Program
 {
     /// <summary>
-    /// A enumerate defining direction movement in the game world.
+    /// A enumeration defining direction movement in the game world.
     /// </summary>
     public enum Direction
     {

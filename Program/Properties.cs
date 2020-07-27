@@ -116,19 +116,19 @@ namespace Program
             // Cycle to assign variables
             foreach(string s in args)
             {
-                if (s == "-N")
+                if (s == "-N" || s == "-n")
                     N = Convert.ToInt32(args[i]);
-                else if (s == "-M")
+                else if (s == "-M" || s == "-m")
                     M = Convert.ToInt32(args[i]);
-                else if (s == "-L")
+                else if (s == "-L" || s == "-l")
                     L = Convert.ToInt32(args[i]);
-                else if (s == "-Tinf")
+                else if (s == "-Tinf" || s == "-tinf")
                     Tinf = Convert.ToInt32(args[i]);
-                else if (s == "-T")
+                else if (s == "-T" || s == "-t")
                     T = Convert.ToInt32(args[i]);
-                else if (s == "-V")
+                else if (s == "-V" || s == "-v")
                     viewSimulation = true;
-                else if (s == "-O")
+                else if (s == "-O" || s == "-o")
                     fileName = args[i];
                 i++;
             }

@@ -58,7 +58,7 @@ namespace Program
         public void updateData()
         {
             string line = $"{agentsHealthy.Count}\t{agentsInfected.Count}" +
-            "\t{agentsDead.Count}";
+            $"\t{agentsDead.Count}";
             dataSaver.Add(line);
         }
 

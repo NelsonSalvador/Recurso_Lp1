@@ -65,7 +65,7 @@ usada.
 
 #### Struct `Coord`
 
-Responsável por toda a struct.
+Completou a class coord 
 
 #### Enum `Status`
 
